@@ -30,9 +30,22 @@ module.exports = {
     },
 
     buscar: function (req,res) {
-       
+        const result = req.query.busqueda
+        db.Producto.findAll({
+          where: { 
+               nombre: {[op.substring]: result}
+         },
+         
+        })
+        .then(function(resultados){
+            return res.render("resultadoBusqueda", {resultados})
+        }).catch(err =>console.log(1,err))
+
+        },
       
-    },
+      
+    
+
 
     agregarComentario: function (req,res) {
         if (req.session.usuarioLogueado == undefined) {
